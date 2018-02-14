@@ -2,18 +2,25 @@ package com.example.easysoft.hometoclient;
 
 import android.app.Activity;
 import android.os.Bundle;
-
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
 import android.util.Log;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.EditText;
 
@@ -21,7 +28,7 @@ public class Client extends Activity {
 
     private Socket socket;
 
-    private static final int SERVERPORT = 2000;
+    private static final int SERVERPORT = 2002;
     private static final String SERVER_IP = "192.168.0.47";
 
     @Override
@@ -29,24 +36,16 @@ public class Client extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.client);
 
-        new Thread(new ClientThread()).start();
+//        new Thread(new ClientThread()).start();
     }
 
     public void onClick(View view) {
         try {
-            EditText et = (EditText) findViewById(R.id.EditText01);
-            String str = et.getText().toString();
-            PrintWriter out = new PrintWriter(new BufferedWriter(
-                    new OutputStreamWriter(socket.getOutputStream())),
-                    true);
-            out.println(str);
+            String textRequest = ((EditText) findViewById(R.id.textRequest)).getText().toString();
+            TextView textViewResponse = (TextView) findViewById(R.id.textResponse);
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            Log.d("pesan", br.readLine());
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            Connector connector = new Connector(SERVER_IP, SERVERPORT, textRequest, textViewResponse);
+            connector.execute();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,25 +55,25 @@ public class Client extends Activity {
         super.onBackPressed();
     }
 
-    class ClientThread implements Runnable {
+//    class ClientThread implements Runnable {
 
-        @Override
-        public void run() {
+//        @Override
+//        public void run() {
+//
+//            try {
+//                InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
+//
+//                socket = new Socket(serverAddr, SERVERPORT);
+//
+//            } catch (UnknownHostException e1) {
+//                e1.printStackTrace();
+//            } catch (IOException e1) {
+//                e1.printStackTrace();
+//            }
 
-            try {
-                InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
+//        }
 
-                socket = new Socket(serverAddr, SERVERPORT);
-
-            } catch (UnknownHostException e1) {
-                e1.printStackTrace();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-
-        }
-
-    }
+//    }
 //
 //    @Override
 //    private void getDataResponse(){
