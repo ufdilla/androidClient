@@ -24,6 +24,8 @@ import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.EditText;
 
+import org.json.JSONObject;
+
 public class Client extends Activity {
 
     private Socket socket;
@@ -42,6 +44,9 @@ public class Client extends Activity {
     public void onClick(View view) {
         try {
             String textRequest = ((EditText) findViewById(R.id.textRequest)).getText().toString();
+
+//            JSONObject jObj = new JSONObject(textRequest);
+
             TextView textViewResponse = (TextView) findViewById(R.id.textResponse);
 
             Connector connector = new Connector(SERVER_IP, SERVERPORT, textRequest, textViewResponse);
@@ -74,9 +79,5 @@ public class Client extends Activity {
 //        }
 
 //    }
-//
-//    @Override
-//    private void getDataResponse(){
-//
-//    }
+
 }

@@ -2,7 +2,12 @@ package com.example.easysoft.hometoclient;
 
 
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -31,7 +36,9 @@ public class Connector extends AsyncTask<Void, Void, Void> {
         try {
             socket = new Socket(destAddress, destPort);
             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
-            dataOutputStream.writeUTF(textRequest);
+            JSONObject jObj = new JSONObject();
+            jObj.put("message", textRequest);
+            dataOutputStream.writeUTF(String.valueOf(jObj));
             dataOutputStream.flush();
 
             DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
@@ -43,6 +50,8 @@ public class Connector extends AsyncTask<Void, Void, Void> {
         } catch (IOException e) {
             e.printStackTrace();
             message = "IOException: " + e.toString() + "\r\n";
+        } catch (JSONException e) {
+            e.printStackTrace();
         } finally {
             if (socket != null) {
                 try {
@@ -60,6 +69,9 @@ public class Connector extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute (Void result) {
         String existingMessage = textViewResponse.getText().toString();
         message = existingMessage + message + "\n";
+//        JSONObject jsonObj = new JSONObject(existingMessage);
+        Log.d("exist pesan: ", existingMessage);
+        Log.d("pesan: ", message);
         textViewResponse.setText(message);
         super.onPostExecute(result);
     }
