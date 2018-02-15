@@ -1,13 +1,11 @@
 package com.example.easysoft.hometoclient;
 
-
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -42,26 +40,39 @@ public class Connector extends AsyncTask<Void, Void, Void> {
             dataOutputStream.flush();
 
             DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-            message = dataInputStream.readUTF();
+            String input = dataInputStream.readUTF();
+            JSONObject mesObj = new JSONObject(input);
+            message = mesObj.getString("response");
+            Log.d("mesObj", String.valueOf(mesObj));
             dataInputStream.close();
-        } catch (UnknownHostException e) {
+            }
+        catch (UnknownHostException e)
+        {
             e.printStackTrace();
             message = "UnknownHostException: " + e.toString() + "\r\n";
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
             message = "IOException: " + e.toString() + "\r\n";
-        } catch (JSONException e) {
+        }
+        catch (JSONException e)
+        {
             e.printStackTrace();
-        } finally {
+        }
+        finally
+        {
             if (socket != null) {
-                try {
+                try
+                {
                     socket.close();
-                } catch (IOException e) {
+                }
+                catch (IOException e)
+                {
                     e.printStackTrace();
                 }
             }
         }
-
         return null;
     }
 
@@ -69,7 +80,6 @@ public class Connector extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute (Void result) {
         String existingMessage = textViewResponse.getText().toString();
         message = existingMessage + message + "\n";
-//        JSONObject jsonObj = new JSONObject(existingMessage);
         Log.d("exist pesan: ", existingMessage);
         Log.d("pesan: ", message);
         textViewResponse.setText(message);
