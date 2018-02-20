@@ -15,7 +15,7 @@ import java.net.UnknownHostException;
 public class Connector extends AsyncTask<Void, Void, Void>
 {
     String destAddress = "192.168.0.47";
-    int destPort = 2002;
+    int destPort = 2003;
     TextView textViewResponse;
     String username;
     String textRequest;
