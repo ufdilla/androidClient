@@ -15,7 +15,7 @@ import java.net.UnknownHostException;
 public class Connector extends AsyncTask<Void, Void, Void>
 {
     String destAddress = "192.168.0.47";
-    int destPort = 2002;
+    int destPort = 2003;
     TextView textViewResponse;
     String username;
     String textRequest;
@@ -47,7 +47,7 @@ public class Connector extends AsyncTask<Void, Void, Void>
             DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
             String input = dataInputStream.readUTF();
             JSONObject mesObj = new JSONObject(input);
-            message = mesObj.getString("response");
+            message = mesObj.getString("message");
             Log.d("mesObj", String.valueOf(mesObj));
             dataInputStream.close();
             }

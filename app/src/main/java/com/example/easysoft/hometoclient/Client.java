@@ -30,7 +30,7 @@ public class Client extends Activity {
 
     private Socket socket;
 
-    private static final int SERVERPORT = 2002;
+    private static final int SERVERPORT = 2003;
     private static final String SERVER_IP = "192.168.0.47";
 
     @Override
@@ -38,20 +38,12 @@ public class Client extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.client);
 
-//        new Thread(new ClientThread()).start();
     }
 
     public void onClick(View view) {
         try {
-            String username = ((EditText) findViewById(R.id.username)).getText().toString();
-            String textRequest =((EditText) findViewById(R.id.textRequest)).getText().toString();
+            new Thread(new ClientThread()).start();
 
-//            JSONObject jObj = new JSONObject(textRequest);
-
-            TextView textViewResponse = (TextView) findViewById(R.id.textResponse);
-
-            Connector connector = new Connector(SERVER_IP, SERVERPORT, username, textRequest, textViewResponse);
-            connector.execute();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,24 +53,25 @@ public class Client extends Activity {
         super.onBackPressed();
     }
 
-//    class ClientThread implements Runnable {
+    class ClientThread implements Runnable {
 
-//        @Override
-//        public void run() {
-//
-//            try {
-//                InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
+        @Override
+        public void run() {
+
+            //                InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
 //
 //                socket = new Socket(serverAddr, SERVERPORT);
-//
-//            } catch (UnknownHostException e1) {
-//                e1.printStackTrace();
-//            } catch (IOException e1) {
-//                e1.printStackTrace();
-//            }
+            String username = ((EditText) findViewById(R.id.username)).getText().toString();
+            String textRequest =((EditText) findViewById(R.id.textRequest)).getText().toString();
 
-//        }
+//            JSONObject jObj = new JSONObject(textRequest);
 
-//    }
+            TextView textViewResponse = (TextView) findViewById(R.id.textResponse);
+            Connector connector = new Connector(SERVER_IP, SERVERPORT, username, textRequest, textViewResponse);
+            connector.execute();
+
+        }
+
+    }
 
 }
