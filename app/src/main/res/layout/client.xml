@@ -6,9 +6,16 @@
     android:orientation="vertical" >
 
     <EditText
+        android:id="@+id/username"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Username">
+    </EditText>
+    <EditText
         android:id="@+id/textRequest"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:text="Message">
     </EditText>
 
     <Button

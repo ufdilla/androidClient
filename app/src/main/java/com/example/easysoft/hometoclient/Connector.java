@@ -12,23 +12,27 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class Connector extends AsyncTask<Void, Void, Void> {
-
+public class Connector extends AsyncTask<Void, Void, Void>
+{
     String destAddress = "192.168.0.47";
     int destPort = 2002;
     TextView textViewResponse;
+    String username;
     String textRequest;
     String message = "";
 
-    public Connector(String destAddress, int destPort, String textRequest, TextView textViewResponse) {
+    public Connector(String destAddress, int destPort, String username, String textRequest, TextView textViewResponse)
+    {
         this.destAddress = destAddress;
         this.destPort = destPort;
+        this.username = username;
         this.textRequest = textRequest;
         this.textViewResponse = textViewResponse;
     }
 
     @Override
-    protected Void doInBackground(Void... voids) {
+    protected Void doInBackground(Void... voids)
+    {
         Socket socket = null;
 
         try {
@@ -36,6 +40,7 @@ public class Connector extends AsyncTask<Void, Void, Void> {
             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
             JSONObject jObj = new JSONObject();
             jObj.put("message", textRequest);
+            jObj.put("username", username);
             dataOutputStream.writeUTF(String.valueOf(jObj));
             dataOutputStream.flush();
 
@@ -62,7 +67,8 @@ public class Connector extends AsyncTask<Void, Void, Void> {
         }
         finally
         {
-            if (socket != null) {
+            if (socket != null)
+            {
                 try
                 {
                     socket.close();
@@ -77,12 +83,12 @@ public class Connector extends AsyncTask<Void, Void, Void> {
     }
 
     @Override
-    protected void onPostExecute (Void result) {
+    protected void onPostExecute (Void result)
+    {
         String existingMessage = textViewResponse.getText().toString();
-        message = existingMessage + message + "\n";
-        Log.d("exist pesan: ", existingMessage);
-        Log.d("pesan: ", message);
-        textViewResponse.setText(message);
+        message = existingMessage + username + " : " + message + "\n";
+//        textViewResponse.setText(username);
+        textViewResponse.setText(message + "\n");
         super.onPostExecute(result);
     }
 }

@@ -43,13 +43,14 @@ public class Client extends Activity {
 
     public void onClick(View view) {
         try {
-            String textRequest = ((EditText) findViewById(R.id.textRequest)).getText().toString();
+            String username = ((EditText) findViewById(R.id.username)).getText().toString();
+            String textRequest =((EditText) findViewById(R.id.textRequest)).getText().toString();
 
 //            JSONObject jObj = new JSONObject(textRequest);
 
             TextView textViewResponse = (TextView) findViewById(R.id.textResponse);
 
-            Connector connector = new Connector(SERVER_IP, SERVERPORT, textRequest, textViewResponse);
+            Connector connector = new Connector(SERVER_IP, SERVERPORT, username, textRequest, textViewResponse);
             connector.execute();
         } catch (Exception e) {
             e.printStackTrace();
