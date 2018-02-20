@@ -87,7 +87,6 @@ public class Connector extends AsyncTask<Void, Void, Void>
     {
         String existingMessage = textViewResponse.getText().toString();
         message = existingMessage + username + " : " + message + "\n";
-//        textViewResponse.setText(username);
         textViewResponse.setText(message + "\n");
         super.onPostExecute(result);
     }
