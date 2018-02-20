@@ -6,9 +6,16 @@
     android:orientation="vertical" >
 
     <EditText
-        android:id="@+id/EditText01"
+        android:id="@+id/username"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:text="Username">
+    </EditText>
+    <EditText
+        android:id="@+id/textRequest"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Message">
     </EditText>
 
     <Button
@@ -22,12 +29,12 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/danger"
+        android:background="@drawable/gradient"
         android:onClick="ReturnHome"
         android:text="Back" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/textResponse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
