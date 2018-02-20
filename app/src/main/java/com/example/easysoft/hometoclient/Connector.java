@@ -47,7 +47,7 @@ public class Connector extends AsyncTask<Void, Void, Void>
             DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
             String input = dataInputStream.readUTF();
             JSONObject mesObj = new JSONObject(input);
-            message = mesObj.getString("response");
+            message = mesObj.getString("message");
             Log.d("mesObj", String.valueOf(mesObj));
             dataInputStream.close();
             }

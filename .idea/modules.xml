@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/HomeToClient.iml" filepath="$PROJECT_DIR$/HomeToClient.iml" />
+      <module fileurl="file://C:\Users\fadilla\AndroidStudioProjects\client\androidClient\HomeToClient.iml" filepath="C:\Users\fadilla\AndroidStudioProjects\client\androidClient\HomeToClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/androidClient.iml" filepath="$PROJECT_DIR$/androidClient.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\fadilla\AndroidStudioProjects\client\androidClient\app\app.iml" filepath="C:\Users\fadilla\AndroidStudioProjects\client\androidClient\app\app.iml" />
     </modules>
   </component>
 </project>
