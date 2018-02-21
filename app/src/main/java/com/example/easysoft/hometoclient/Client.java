@@ -58,7 +58,7 @@ public class Client extends Activity {
         @Override
         public void run() {
 
-            //                InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
+//                InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
 //
 //                socket = new Socket(serverAddr, SERVERPORT);
             String username = ((EditText) findViewById(R.id.username)).getText().toString();
