@@ -14,7 +14,7 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:text="Username : "
-         android:textSize="20dp"
+         android:textSize="15dp"
          android:textColor="@color/colorLight"/>
      <EditText
          android:id="@+id/username"
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Message : "
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:textColor="@color/colorLight"/>
     <EditText
         android:id="@+id/textRequest"
@@ -58,7 +58,7 @@
         android:id="@+id/textResponse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="75px"
+        android:textSize="65px"
         android:textColor="@color/colorLight"/>
 
 
