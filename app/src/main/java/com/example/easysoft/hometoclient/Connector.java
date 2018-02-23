@@ -1,9 +1,9 @@
 package com.example.easysoft.hometoclient;
 
+import android.os.Handler;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.TextView;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.DataInputStream;
@@ -12,22 +12,26 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import static com.android.volley.VolleyLog.TAG;
+
 public class Connector extends AsyncTask<Void, Void, Void>
 {
-    String destAddress = "192.168.0.47";
-    int destPort = 2003;
     TextView textViewResponse;
+    String textDestination;
     String username;
     String textRequest;
     String message = "";
+    String destAddress;
+    int destPort;
 
-    public Connector(String destAddress, int destPort, String username, String textRequest, TextView textViewResponse)
+    public Connector(String destAddress, int destPort, String username, String textRequest, TextView textViewResponse, String textDestination)
     {
         this.destAddress = destAddress;
         this.destPort = destPort;
         this.username = username;
         this.textRequest = textRequest;
         this.textViewResponse = textViewResponse;
+        this.textDestination= textDestination;
     }
 
     @Override
@@ -36,11 +40,15 @@ public class Connector extends AsyncTask<Void, Void, Void>
         Socket socket = null;
 
         try {
+            String destAddress = "192.168.0.47";
+            int destPort = 2003;
+
             socket = new Socket(destAddress, destPort);
             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
             JSONObject jObj = new JSONObject();
             jObj.put("message", textRequest);
             jObj.put("username", username);
+            jObj.put("destination", textDestination);
             dataOutputStream.writeUTF(String.valueOf(jObj));
             dataOutputStream.flush();
 
@@ -49,7 +57,7 @@ public class Connector extends AsyncTask<Void, Void, Void>
             JSONObject mesObj = new JSONObject(input);
             message = mesObj.getString("message");
             Log.d("mesObj", String.valueOf(mesObj));
-            dataInputStream.close();
+//            dataInputStream.close();
             }
         catch (UnknownHostException e)
         {
@@ -87,7 +95,6 @@ public class Connector extends AsyncTask<Void, Void, Void>
     {
         String existingMessage = textViewResponse.getText().toString();
         message = existingMessage + username + " : " + message + "\n";
-//        textViewResponse.setText(username);
         textViewResponse.setText(message + "\n");
         super.onPostExecute(result);
     }
