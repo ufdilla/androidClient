@@ -1,6 +1,6 @@
 package com.example.easysoft.hometoclient;
 
-import android.os.Handler;
+//import android.os.Handler;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.TextView;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import static com.android.volley.VolleyLog.TAG;
+//import static com.android.volley.VolleyLog.TAG;
 
 public class Connector extends AsyncTask<Void, Void, Void>
 {
@@ -22,12 +22,12 @@ public class Connector extends AsyncTask<Void, Void, Void>
     String textRequest;
     String message = "";
     String destAddress;
+    Socket socket;
     int destPort;
 
-    public Connector(String destAddress, int destPort, String username, String textRequest, TextView textViewResponse, String textDestination)
+    public Connector(Socket socket, String username, String textRequest, TextView textViewResponse, String textDestination)
     {
-        this.destAddress = destAddress;
-        this.destPort = destPort;
+        this.socket = socket;
         this.username = username;
         this.textRequest = textRequest;
         this.textViewResponse = textViewResponse;
@@ -37,13 +37,12 @@ public class Connector extends AsyncTask<Void, Void, Void>
     @Override
     protected Void doInBackground(Void... voids)
     {
-        Socket socket = null;
 
         try {
-            String destAddress = "192.168.0.47";
-            int destPort = 2003;
-
-            socket = new Socket(destAddress, destPort);
+//            String destAddress = "192.168.0.47";
+//            int destPort = 2003;
+//
+//            socket = new Socket(destAddress, destPort);
             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
             JSONObject jObj = new JSONObject();
             jObj.put("message", textRequest);
@@ -73,20 +72,20 @@ public class Connector extends AsyncTask<Void, Void, Void>
         {
             e.printStackTrace();
         }
-        finally
-        {
-            if (socket != null)
-            {
-                try
-                {
-                    socket.close();
-                }
-                catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }
+//        finally
+//        {
+//            if (socket != null)
+//            {
+//                try
+//                {
+//                    socket.close();
+//                }
+//                catch (IOException e)
+//                {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
         return null;
     }
 
