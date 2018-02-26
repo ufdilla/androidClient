@@ -10,6 +10,8 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
     Button btn1;
+//    private static final int SERVERPORT = 2003;
+//    private static final String SERVER_IP = "192.168.0.47";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
