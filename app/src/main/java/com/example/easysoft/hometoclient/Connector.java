@@ -21,17 +21,17 @@ public class Connector extends AsyncTask<Void, Void, Void>
     String username;
     String textRequest;
     String message = "";
-    String destAddress;
+//    String destAddress;
     Socket socket;
-    int destPort;
+//    int destPort;
 
-    public Connector(Socket socket, String username, String textRequest, TextView textViewResponse, String textDestination)
+    public Connector(Socket socket, String textRequest, TextView textViewResponse)
     {
         this.socket = socket;
-        this.username = username;
+//        this.username = username;
         this.textRequest = textRequest;
         this.textViewResponse = textViewResponse;
-        this.textDestination= textDestination;
+//        this.textDestination= textDestination;
     }
 
     @Override
