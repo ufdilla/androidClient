@@ -33,6 +33,12 @@ public class Connector extends AsyncTask<Void, Void, Void> {
 //        this.textDestination= textDestination;
     }
 
+    public Connector(Socket socket, String textRequest, TextView textViewResponse) {
+        this.socket = socket;
+        this.textRequest = textRequest;
+        this.textViewResponse = textViewResponse;
+    }
+
     @Override
     protected Void doInBackground(Void... voids) {
 
@@ -44,8 +50,8 @@ public class Connector extends AsyncTask<Void, Void, Void> {
             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
             JSONObject jObj = new JSONObject();
             jObj.put("message", textRequest);
-            jObj.put("username", username);
-            jObj.put("destination", textDestination);
+//            jObj.put("username", username);
+//            jObj.put("destination", textDestination);
             dataOutputStream.writeUTF(String.valueOf(jObj));
             dataOutputStream.flush();
 
@@ -53,6 +59,7 @@ public class Connector extends AsyncTask<Void, Void, Void> {
             String input = dataInputStream.readUTF();
             JSONObject mesObj = new JSONObject(input);
             message = mesObj.getString("message");
+            username = mesObj.getString("username");
             Log.d("mesObj", String.valueOf(mesObj));
 //            dataInputStream.close();
         } catch (UnknownHostException e) {

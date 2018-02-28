@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import java.net.Socket;
 
+import static android.content.ContentValues.TAG;
+
 public class Chat extends Activity {
 
     Socket socket = null;
@@ -25,8 +27,7 @@ public class Chat extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat);
 
-        myModel = (myModel) getIntent().getSerializableExtra(KEY_ITEM);
-        System.out.println("mymodel nama :" + myModel.getNama());
+//        myModel = (myModel) getIntent().getSerializableExtra(KEY_ITEM);
 
     }
 
@@ -47,13 +48,21 @@ public class Chat extends Activity {
 
         @Override
         public void run() {
+            try {
+
             Socket socket = Client.getSocket();
             String textRequest = ((EditText) findViewById(R.id.textRequest)).getText().toString();
 //            String textDestination =((EditText) findViewById(R.id.textDestination)).getText().toString();
-
             TextView textViewResponse = findViewById(R.id.textResponse);
-            Connector connector = new Connector(socket, textRequest, textViewResponse, myModel.getNama());
+//            String username = myModel.getNama();
+            Connector connector = new Connector(socket, textRequest, textViewResponse);
             connector.execute();
+
+            }
+            catch (Exception e)
+            {
+                Log.e(TAG, "run: ", e );
+            }
 
         }
 

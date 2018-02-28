@@ -84,9 +84,6 @@ class Client extends Activity {
                 jsObject.put("socket", socket);
                 jsObject.put("username", username);
 
-//                System.out.println("object : " + jsObject);
-//                Intent intObj = new Intent(Client.this, Chat.class);
-
                 Client.setSocket(socket);
                 Intent intent = new Intent(Client.this, Chat.class);
                 startActivity(intent);
