@@ -26,6 +26,7 @@ public class Chat extends Activity {
         setContentView(R.layout.chat);
 
         myModel = (myModel) getIntent().getSerializableExtra(KEY_ITEM);
+        System.out.println("mymodel nama :" + myModel.getNama());
 
     }
 
