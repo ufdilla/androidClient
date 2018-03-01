@@ -10,12 +10,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONObject;
-
 import java.io.DataInputStream;
 import java.net.Socket;
-
 import static android.content.ContentValues.TAG;
 
 public class Chat extends Activity {
@@ -76,7 +73,6 @@ boolean connected = true;
                     message = existingMessage + username + " : " + message + "\n";
                     textViewResponse.setText(message + "\n");
                 }
-
 //                super.onPostExecute(result);
             }
             catch (Exception e)

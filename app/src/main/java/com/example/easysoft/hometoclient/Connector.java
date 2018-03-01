@@ -19,19 +19,18 @@ public class Connector extends AsyncTask<Void, Void, Void> {
     String textRequest;
     String message = "";
     Socket socket;
-
     myModel model;
 //    String destAddress;
 //    int destPort;
 
-    public Connector(Socket socket, String textRequest, TextView textViewResponse, String username) {
-        this.socket = socket;
-        this.textRequest = textRequest;
-        this.textViewResponse = textViewResponse;
-        this.username = username;
+//    public Connector(Socket socket, String textRequest, TextView textViewResponse, String username) {
+//        this.socket = socket;
+//        this.textRequest = textRequest;
+//        this.textViewResponse = textViewResponse;
 //        this.username = username;
-//        this.textDestination= textDestination;
-    }
+////        this.username = username;
+////        this.textDestination= textDestination;
+//    }
 
     public Connector(Socket socket, String textRequest, TextView textViewResponse) {
         this.socket = socket;
