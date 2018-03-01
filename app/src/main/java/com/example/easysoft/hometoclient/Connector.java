@@ -55,12 +55,8 @@ public class Connector extends AsyncTask<Void, Void, Void> {
             dataOutputStream.writeUTF(String.valueOf(jObj));
             dataOutputStream.flush();
 
-            DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-            String input = dataInputStream.readUTF();
-            JSONObject mesObj = new JSONObject(input);
-            message = mesObj.getString("message");
-            username = mesObj.getString("username");
-            Log.d("mesObj", String.valueOf(mesObj));
+
+//            Log.d("mesObj", String.valueOf(mesObj));
 //            dataInputStream.close();
         } catch (UnknownHostException e) {
             e.printStackTrace();
@@ -80,9 +76,9 @@ public class Connector extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void result) {
-        String existingMessage = textViewResponse.getText().toString();
-        message = existingMessage + username + " : " + message + "\n";
-        textViewResponse.setText(message + "\n");
+//        String existingMessage = textViewResponse.getText().toString();
+//        message = existingMessage + username + " : " + message + "\n";
+//        textViewResponse.setText(message + "\n");
         super.onPostExecute(result);
     }
 }
