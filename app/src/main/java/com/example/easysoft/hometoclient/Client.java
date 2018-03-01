@@ -1,86 +1,106 @@
 package com.example.easysoft.hometoclient;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.SocketHandler;
 
-public class Client extends Activity {
+class Client extends Activity {
 
-    Socket socket = null;
+    private static Socket socket = null;
     private static final String TAG = "Client";
-    private static final int SERVERPORT = 2003;
-    private static final String SERVER_IP = "192.168.0.47";
+
+    myModel model;
+    Button btnLogin;
+    List<myModel> list;
+    String username;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.client);
+
+        btnLogin = findViewById(R.id.btn_login);
+
+        list = new ArrayList<>();
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                username = ((EditText) findViewById(R.id.username)).getText().toString();
+                Intent i = new Intent(Client.this, Chat.class);
+                new Thread(new LoginThread()).start();
+                model = new myModel();
+                model.setNama(username);
+                list.add(model);
+
+                i.putExtra(Chat.KEY_ITEM, model);
+                startActivity(i);
+            }
+        });
     }
 
-    public void onClick(View view) {
-        try {
-            new Thread(new ClientThread()).start();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public static void setSocket(Socket _socket) {
+        Client.socket = _socket;
     }
 
-    public void Login(View view){
-        try {
-            new Thread(new LoginThread()).start();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    class ClientThread implements Runnable {
-
-        @Override
-        public void run() {
-
-        String username = ((EditText) findViewById(R.id.username)).getText().toString();
-        String textRequest =((EditText) findViewById(R.id.textRequest)).getText().toString();
-        String textDestination =((EditText) findViewById(R.id.textDestination)).getText().toString();
-
-        TextView textViewResponse = findViewById(R.id.textResponse);
-        Connector connector = new Connector(socket, username, textRequest, textViewResponse, textDestination);
-        connector.execute();
-
-        }
-
+    public static Socket getSocket() {
+        return Client.socket;
     }
 
     private class LoginThread implements Runnable {
+
         @Override
         public void run() {
             String username = ((EditText) findViewById(R.id.username)).getText().toString();
 
             try {
-            String destAddress = "192.168.0.47";
-            int destPort = 2003;
+                String destAddress = "192.168.0.47";
+                int destPort = 2003;
 
-            socket = new Socket(destAddress, destPort);
+                socket = new Socket(destAddress, destPort);
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                 out.println(username);
-//                Log.d("socket ", String.valueOf(out));
-            }
 
-            catch (UnknownHostException e) {
+                JSONObject jsObject = new JSONObject();
+                jsObject.put("socket", socket);
+                jsObject.put("username", username);
+
+                Client.setSocket(socket);
+                Intent intent = new Intent(Client.this, Chat.class);
+                startActivity(intent);
+
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-          }
         }
+
+        private Context getActivity() {
+            return null;
+        }
+
+    }
+
 }
